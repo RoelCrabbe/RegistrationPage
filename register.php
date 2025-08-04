@@ -24,27 +24,28 @@ $client = new SoapClient(
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     // Validate username input
-    if (empty(trim($_POST["username"]))) {
+    $username_trimmed = trim($_POST["username"]);
+    if (empty($username_trimmed)) {
         $username_err = "Required"; // Username cannot be empty
-    } elseif (!ctype_alnum($_POST["username"])) {
+    } elseif (!ctype_alnum($username_trimmed)) {
         $username_err = "Must be letters and numbers only"; // Only alphanumeric allowed
-    } elseif (strlen(trim($_POST["username"])) > 16) {
+    } elseif (strlen($username_trimmed) > 16) {
         $username_err = "Too long"; // Max 16 characters
-    } elseif (strlen(trim($_POST["username"])) < 4) {
+    } elseif (strlen($username_trimmed) < 4) {
         $username_err = "Too short"; // Min 4 characters
     } else {
         // Check if username already exists in database
         $sql = "SELECT id FROM account WHERE username = ?";
         if ($stmt = mysqli_prepare($link, $sql)) {
             mysqli_stmt_bind_param($stmt, "s", $param_username);
-            $param_username = htmlspecialchars(trim($_POST["username"]));
+            $param_username = htmlspecialchars($username_trimmed);
 
             if (mysqli_stmt_execute($stmt)) {
                 mysqli_stmt_store_result($stmt);
                 if (mysqli_stmt_num_rows($stmt) == 1) {
                     $username_err = "Taken"; // Username already exists
                 } else {
-                    $username = htmlspecialchars(trim($_POST["username"]));
+                    $username = htmlspecialchars($username_trimmed);
                 }
             } else {
                 echo "Error executing query";
@@ -54,24 +55,26 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
     // Validate password input
-    if (empty(trim($_POST["password"]))) {
+    $password_trimmed = trim($_POST["password"]);
+    if (empty($password_trimmed)) {
         $password_err = "Required"; // Password cannot be empty
-    } elseif (strlen(trim($_POST["password"])) > 16) {
+    } elseif (strlen($password_trimmed) > 16) {
         $password_err = "Too long"; // Max 16 characters
-    } elseif (strlen(trim($_POST["password"])) < 6) {
+    } elseif (strlen($password_trimmed) < 6) {
         $password_err = "Too short"; // Min 6 characters
     } else {
-        $password = trim($_POST["password"]);
+        $password = $password_trimmed;
         $password_hashed = password_hash($password, PASSWORD_DEFAULT); // Hash password securely
     }
 
     // Validate password confirmation (verify)
-    if (empty(trim($_POST["password_verify"]))) {
+    $password_verify_trimmed = trim($_POST["password_verify"]);
+    if (empty($password_verify_trimmed)) {
         $password_verify_err = "Required"; // Confirmation required
-    } elseif ($_POST["password"] !== $_POST["password_verify"]) {
+    } elseif ($password_trimmed !== $password_verify_trimmed) {
         $password_verify_err = "Mismatch"; // Passwords do not match
     } else {
-        $password_verify = trim($_POST["password_verify"]);
+        $password_verify = $password_verify_trimmed;
     }
 
     // If no errors, proceed to create account via SOAP command
@@ -106,7 +109,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             }, 1500);
         });
     }
-</script>
+  </script>
 </head>
 <body>
   <div class="register-wrapper">
