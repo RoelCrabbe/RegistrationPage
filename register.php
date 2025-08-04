@@ -192,31 +192,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }, 2000);
       });
     }
-
-    function createParticles() {
-      const particles = document.getElementById('particles');
-      const particleCount = 50;
-      
-      for (let i = 0; i < particleCount; i++) {
-        const particle = document.createElement('div');
-        particle.className = 'particle';
-        particle.style.left = Math.random() * 100 + '%';
-        particle.style.animationDelay = Math.random() * 8 + 's';
-        particle.style.animationDuration = (8 + Math.random() * 4) + 's';
-        particles.appendChild(particle);
-      }
-    }
-
-    document.addEventListener('DOMContentLoaded', createParticles);
-    document.querySelectorAll('.form-input').forEach(input => {
-      input.addEventListener('focus', function() {
-        this.parentElement.style.transform = 'translateY(-2px)';
-      });
-      
-      input.addEventListener('blur', function() {
-        this.parentElement.style.transform = 'translateY(0)';
-      });
-    });
   </script>
 </body>
 </html>
