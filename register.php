@@ -88,6 +88,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 }
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -96,12 +97,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <!-- Overlay to soften background -->
   <div class="overlay"></div>
-  
-  <!-- Animated background particles -->
-  <div class="particles" id="particles"></div>
-
   <div class="register-wrapper">
     <div class="header">
       <h1 class="title">Join the Realm</h1>
