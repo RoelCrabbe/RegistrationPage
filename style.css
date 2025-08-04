@@ -9,7 +9,7 @@ html {
 
 html,
 body {
-  background-color: #f9fafb;
+  background-color: #16202b; /* dark blue-gray */
   scroll-behavior: smooth;
   margin: 0;
   -webkit-font-smoothing: antialiased;
@@ -24,11 +24,11 @@ body {
   background-size: cover;
 }
 
-/* Overlay for gray tint */
+/* Overlay to soften background image */
 .overlay {
   position: fixed;
   inset: 0;
-  background-color: rgba(0, 0, 0, 0.45);
+  background-color: rgba(22, 32, 43, 0.6);
   z-index: 0;
 }
 
@@ -54,7 +54,7 @@ body {
 }
 
 ::-webkit-scrollbar-track {
-  background-color: #f3f4f6;
+  background-color: #2a3a4e;
   border-radius: 0.5rem;
   margin-block: 0.5rem;
 }
@@ -71,24 +71,24 @@ body {
 }
 
 ::-webkit-scrollbar-thumb {
-  background-color: #d1d5db;
+  background-color: #61a6c2;
   border-radius: 0.5rem;
   transition: background-color 300ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 @media (prefers-color-scheme: dark) {
   ::-webkit-scrollbar-thumb {
-    background-color: #4b5563;
+    background-color: #4f8aa3;
   }
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background-color: #9ca3af;
+  background-color: #3e6f88;
 }
 
 @media (prefers-color-scheme: dark) {
   ::-webkit-scrollbar-thumb:hover {
-    background-color: #6b7280;
+    background-color: #316075;
   }
 }
 
@@ -108,14 +108,14 @@ body {
   left: 10%;
   transform: translateY(-50%);
   width: 400px;
-  background-color: rgba(30, 30, 30, 0.65);
+  background-color: rgba(22, 32, 43, 0.75);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
   padding: 2rem 2.5rem;
   border-radius: 12px;
-  box-shadow: 0 0 30px rgba(0, 0, 0, 0.4);
+  box-shadow: 0 0 40px rgba(38, 88, 126, 0.75);
   user-select: none;
-  color: #f3f4f6;
+  color: #c9d1d9; /* soft moonlight gray */
   display: flex;
   align-items: center;
   flex-direction: column;
@@ -129,6 +129,7 @@ p {
   font-size: 1.25rem;
   font-weight: 500;
   margin-bottom: 0.5rem;
+  color: #c9d1d9;
 }
 
 .register-wrapper > form {
@@ -141,9 +142,9 @@ p {
 
 input[type="text"],
 input[type="password"] {
-  background-color: #1f2937;
-  border: 1px solid #374151;
-  color: #f9fafb;
+  background-color: #2a3a4e; /* muted blue-gray */
+  border: 1px solid #3f5e7e; /* soft muted blue */
+  color: #c9d1d9;
   padding: 0.5rem 0.75rem;
   border-radius: 6px;
   width: 100%;
@@ -152,8 +153,8 @@ input[type="password"] {
 
 input:focus {
   outline: none;
-  border-color: #3b82f6;
-  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.4);
+  border-color: #61a6c2; /* cool cyan */
+  box-shadow: 0 0 0 3px rgba(97, 166, 194, 0.4);
 }
 
 .invalid-feedback {
@@ -162,23 +163,25 @@ input:focus {
 }
 
 input.clicker {
-  background-color: #3b82f6;
-  color: white;
+  background-color: #61a6c2;
+  color: #16202b;
   border: none;
   padding: 0.5rem 1rem;
   border-radius: 6px;
   cursor: pointer;
   font-weight: 500;
+  transition: background-color 0.3s ease;
 }
 
 input.clicker:hover {
-  background-color: #2563eb;
+  background-color: #4f8aa3;
 }
 
 .copy-container {
-  font-size: 0.875rem; /* smaller than normal text */
-  color: #d1d5db;
-  background-color: rgba(0, 0, 0, 0.3);
+  font-size: 0.875rem;
+  color: #c9d1d9;
+  background-color: rgba(22, 32, 43, 0.75); /* more opaque */
+  border: 1.5px solid #61a6c2; /* cyan border */
   padding: 0.4rem 0.75rem;
   border-radius: 6px;
   display: inline-flex;
@@ -186,11 +189,13 @@ input.clicker:hover {
   align-items: center;
   cursor: pointer;
   user-select: none;
-  transition: background-color 0.3s ease;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: 0 0 8px rgba(97, 166, 194, 0.3); /* subtle glow */
 }
 
 .copy-container:hover {
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: rgba(22, 32, 43, 0.9);
+  box-shadow: 0 0 12px rgba(97, 166, 194, 0.6); /* stronger glow */
 }
 
 .copy-container code {
