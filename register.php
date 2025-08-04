@@ -88,69 +88,80 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 }
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Sign Up</title>
-    <link rel="stylesheet" href="style.css">
-    <style>
-        body { font: 14px sans-serif; }
-        .wrapper { width: 350px; padding: 20px; }
-    </style>
+  <meta charset="UTF-8">
+  <title>Sign Up</title>
+  <link rel="stylesheet" href="style.css">
+  <script>
+    function copyRealmlist() {
+        const text = document.getElementById("realmlist").innerText;
+        navigator.clipboard.writeText(text).then(() => {
+            const hint = document.querySelector(".copy-hint");
+            hint.textContent = "[Copied]";
+            setTimeout(() => {
+            hint.textContent = "[Copy]";
+            }, 1500);
+        });
+    }
+</script>
 </head>
 <body>
-    <div class="wrapper">
-        <h2><center>Sign Up</center></h2>
-        <p>Please fill this form to create an account.</p>
-        <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post" autocomplete="off">
-            <table width="100%">
-                <col style="width:25%">
-                <col style="width:50%">
-                <col style="width:25%">
-                <tr>
-                    <td><label>Username:</label></td>
-                    <td>
-                        <input 
-                            type="text" 
-                            name="username" 
-                            autocomplete="username" 
-                            class="form-control <?php echo (!empty($username_err)) ? 'is-invalid' : ''; ?>" 
-                            value="<?php echo htmlspecialchars($username); ?>">
-                    </td>
-                    <td><span class="invalid-feedback"><?php echo $username_err; ?></span></td>
-                </tr>      
-                <tr>
-                    <td><label>Password:</label></td>
-                    <td>
-                        <input 
-                            type="password" 
-                            name="password" 
-                            autocomplete="new-password" 
-                            class="form-control <?php echo (!empty($password_err)) ? 'is-invalid' : ''; ?>" 
-                            value="">
-                    </td>
-                    <td><span class="invalid-feedback"><?php echo $password_err; ?></span></td>
-                </tr>    
-                <tr>
-                    <td><label>Verify:</label></td>
-                    <td>
-                        <input 
-                            type="password" 
-                            name="password_verify" 
-                            autocomplete="new-password" 
-                            class="form-control <?php echo (!empty($password_verify_err)) ? 'is-invalid' : ''; ?>" 
-                            value="">
-                    </td>
-                    <td><span class="invalid-feedback"><?php echo $password_verify_err; ?></span></td>
-                </tr>           
-            </table>
-            <div class="form-group">
-                <input type="submit" class="clicker" value="Submit">
-                <div><span class="invalid-feedback"><?php echo $result; ?></span></div>
-            </div>
-        </form>
-    </div>    
+  <div class="register-wrapper">
+    <h2>Sign Up</h2>
+    <p>Please fill this form to create an account.</p>
+    <div class="copy-container" onclick="copyRealmlist()" title="Click to copy to clipboard">
+        <code id="realmlist">set realmlist moronbox.duckdns.org</code>
+        <span class="copy-hint">[Copy]</span>
+    </div>
+    <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post" autocomplete="off">
+      <table width="100%">
+        <col style="width:25%">
+        <col style="width:50%">
+        <col style="width:25%">
+        <tr>
+          <td><label>Username:</label></td>
+          <td>
+            <input 
+              type="text" 
+              name="username" 
+              autocomplete="username" 
+              class="form-control <?php echo (!empty($username_err)) ? 'is-invalid' : ''; ?>" 
+              value="<?php echo htmlspecialchars($username); ?>">
+          </td>
+          <td><span class="invalid-feedback"><?php echo $username_err; ?></span></td>
+        </tr>      
+        <tr>
+          <td><label>Password:</label></td>
+          <td>
+            <input 
+              type="password" 
+              name="password" 
+              autocomplete="new-password" 
+              class="form-control <?php echo (!empty($password_err)) ? 'is-invalid' : ''; ?>" 
+              value="">
+          </td>
+          <td><span class="invalid-feedback"><?php echo $password_err; ?></span></td>
+        </tr>    
+        <tr>
+          <td><label>Verify:</label></td>
+          <td>
+            <input 
+              type="password" 
+              name="password_verify" 
+              autocomplete="new-password" 
+              class="form-control <?php echo (!empty($password_verify_err)) ? 'is-invalid' : ''; ?>" 
+              value="">
+          </td>
+          <td><span class="invalid-feedback"><?php echo $password_verify_err; ?></span></td>
+        </tr>           
+      </table>
+      <div class="form-group">
+        <input type="submit" class="clicker" value="Submit">
+        <div><span class="invalid-feedback"><?php echo $result; ?></span></div>
+      </div>
+    </form>
+  </div>    
 </body>
 </html>

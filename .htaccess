@@ -1,2 +1,7 @@
 DirectoryIndex register.php
-AddType wallpaper/vanilla .jpg
+
+RewriteEngine On
+
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^.\*$ /register.php [L]
