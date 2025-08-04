@@ -96,76 +96,127 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Sign Up</title>
+  <title>Join the Realm - Sign Up</title>
   <link rel="stylesheet" href="style.css">
-  <script>
-    function copyRealmlist() {
-        const text = document.getElementById("realmlist").innerText;
-        navigator.clipboard.writeText(text).then(() => {
-            const hint = document.querySelector(".copy-hint");
-            hint.textContent = "[Copied]";
-            setTimeout(() => {
-            hint.textContent = "[Copy]";
-            }, 1500);
-        });
-    }
-  </script>
 </head>
 <body>
+  <div class="overlay"></div>
   <div class="register-wrapper">
-    <h2>Sign Up</h2>
-    <p>Please fill this form to create an account.</p>
-    <div class="copy-container" onclick="copyRealmlist()" title="Click to copy to clipboard">
-        <code id="realmlist">set realmlist moronbox.duckdns.org</code>
-        <span class="copy-hint">[Copy]</span>
+    <div class="header">
+      <h1 class="title">Join the Realm</h1>
+      <p class="subtitle">Create your account and begin your adventure</p>
     </div>
-    <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post" autocomplete="off">
-      <table width="100%">
-        <col style="width:25%">
-        <col style="width:50%">
-        <col style="width:25%">
-        <tr>
-          <td><label>Username:</label></td>
-          <td>
-            <input 
-              type="text" 
-              name="username" 
-              autocomplete="username" 
-              class="form-control <?php echo (!empty($username_err)) ? 'is-invalid' : ''; ?>" 
-              value="<?php echo htmlspecialchars($username); ?>">
-          </td>
-          <td><span class="invalid-feedback"><?php echo $username_err; ?></span></td>
-        </tr>      
-        <tr>
-          <td><label>Password:</label></td>
-          <td>
-            <input 
-              type="password" 
-              name="password" 
-              autocomplete="new-password" 
-              class="form-control <?php echo (!empty($password_err)) ? 'is-invalid' : ''; ?>" 
-              value="">
-          </td>
-          <td><span class="invalid-feedback"><?php echo $password_err; ?></span></td>
-        </tr>    
-        <tr>
-          <td><label>Verify:</label></td>
-          <td>
-            <input 
-              type="password" 
-              name="password_verify" 
-              autocomplete="new-password" 
-              class="form-control <?php echo (!empty($password_verify_err)) ? 'is-invalid' : ''; ?>" 
-              value="">
-          </td>
-          <td><span class="invalid-feedback"><?php echo $password_verify_err; ?></span></td>
-        </tr>           
-      </table>
-      <div class="form-group">
-        <input type="submit" class="clicker" value="Submit">
-        <div><span class="invalid-feedback"><?php echo $result; ?></span></div>
+
+    <div class="copy-container" onclick="copyRealmlist()" title="Click to copy realmlist command">
+      <div class="copy-header">
+        <span class="copy-label">Realmlist Command</span>
+        <span class="copy-hint" id="copyHint">Click to Copy</span>
       </div>
+      <code class="copy-code" id="realmlist">set realmlist moronbox.duckdns.org</code>
+    </div>
+
+    <form class="form-container" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post" autocomplete="off">
+      <div class="form-group">
+        <input
+          type="text"
+          name="username"
+          class="form-input <?php echo (!empty($username_err)) ? 'is-invalid' : ''; ?>"
+          placeholder="Choose your username"
+          autocomplete="username"
+          value="<?php echo htmlspecialchars($username ?? ''); ?>">
+        <?php if (!empty($username_err)): ?>
+          <span class="invalid-feedback"><?php echo $username_err; ?></span>
+        <?php endif; ?>
+      </div>
+
+      <div class="form-group">
+        <input
+          type="password"
+          name="password"
+          class="form-input <?php echo (!empty($password_err)) ? 'is-invalid' : ''; ?>"
+          placeholder="Create a strong password"
+          autocomplete="new-password">
+        <?php if (!empty($password_err)): ?>
+          <span class="invalid-feedback"><?php echo $password_err; ?></span>
+        <?php endif; ?>
+      </div>
+
+      <div class="form-group">
+        <input
+          type="password"
+          name="password_verify"
+          class="form-input <?php echo (!empty($password_verify_err)) ? 'is-invalid' : ''; ?>"
+          placeholder="Confirm your password"
+          autocomplete="new-password">
+        <?php if (!empty($password_verify_err)): ?>
+          <span class="invalid-feedback"><?php echo $password_verify_err; ?></span>
+        <?php endif; ?>
+      </div>
+
+      <button type="submit" class="submit-btn">
+        Create Account
+      </button>
+
+      <?php if (!empty($result) && strpos($result, 'created') !== false): ?>
+        <div class="success-message">
+          🎉 <?php echo $result; ?>
+        </div>
+      <?php elseif (!empty($result)): ?>
+        <span class="invalid-feedback"><?php echo $result; ?></span>
+      <?php endif; ?>
     </form>
-  </div>    
+  </div>
+
+  <script>
+    function copyRealmlist() {
+      const text = document.getElementById("realmlist").textContent;
+      const hint = document.getElementById("copyHint");
+      
+      navigator.clipboard.writeText(text).then(() => {
+        hint.textContent = "Copied!";
+        hint.style.background = "rgba(34, 197, 94, 0.2)";
+        hint.style.color = "#4ade80";
+        
+        setTimeout(() => {
+          hint.textContent = "Click to Copy";
+          hint.style.background = "rgba(97, 166, 194, 0.1)";
+          hint.style.color = "#8b949e";
+        }, 2000);
+      }).catch(() => {
+        hint.textContent = "Failed to copy";
+        hint.style.color = "#f87171";
+        
+        setTimeout(() => {
+          hint.textContent = "Click to Copy";
+          hint.style.color = "#8b949e";
+        }, 2000);
+      });
+    }
+
+    function createParticles() {
+      const particles = document.getElementById('particles');
+      const particleCount = 50;
+      
+      for (let i = 0; i < particleCount; i++) {
+        const particle = document.createElement('div');
+        particle.className = 'particle';
+        particle.style.left = Math.random() * 100 + '%';
+        particle.style.animationDelay = Math.random() * 8 + 's';
+        particle.style.animationDuration = (8 + Math.random() * 4) + 's';
+        particles.appendChild(particle);
+      }
+    }
+
+    document.addEventListener('DOMContentLoaded', createParticles);
+    document.querySelectorAll('.form-input').forEach(input => {
+      input.addEventListener('focus', function() {
+        this.parentElement.style.transform = 'translateY(-2px)';
+      });
+      
+      input.addEventListener('blur', function() {
+        this.parentElement.style.transform = 'translateY(0)';
+      });
+    });
+  </script>
 </body>
 </html>
