@@ -169,29 +169,54 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
   <script>
     function copyRealmlist() {
-      const text = document.getElementById("realmlist").textContent;
-      const hint = document.getElementById("copyHint");
-      
-      navigator.clipboard.writeText(text).then(() => {
-        hint.textContent = "Copied!";
-        hint.style.background = "rgba(34, 197, 94, 0.2)";
-        hint.style.color = "#4ade80";
-        
+        const text = document.getElementById("realmlist").textContent;
+        const hint = document.getElementById("copyHint");
+
+        if (navigator.clipboard) {
+        navigator.clipboard.writeText(text).then(() => {
+            hint.textContent = "Copied!";
+            hint.style.background = "rgba(34, 197, 94, 0.2)";
+            hint.style.color = "#4ade80";
+
+            setTimeout(() => {
+            hint.textContent = "Click to Copy";
+            hint.style.background = "rgba(97, 166, 194, 0.1)";
+            hint.style.color = "#8b949e";
+            }, 2000);
+        }).catch(() => {
+            hint.textContent = "Failed to copy";
+            hint.style.color = "#f87171";
+
+            setTimeout(() => {
+            hint.textContent = "Click to Copy";
+            hint.style.color = "#8b949e";
+            }, 2000);
+        });
+        } else {
+        const textarea = document.createElement('textarea');
+        textarea.value = text;
+        document.body.appendChild(textarea);
+        textarea.select();
+
+        try {
+            document.execCommand('copy');
+            hint.textContent = "Copied!";
+            hint.style.background = "rgba(34, 197, 94, 0.2)";
+            hint.style.color = "#4ade80";
+        } catch (err) {
+            hint.textContent = "Failed to copy";
+            hint.style.color = "#f87171";
+        }
+
+        document.body.removeChild(textarea);
+
         setTimeout(() => {
-          hint.textContent = "Click to Copy";
-          hint.style.background = "rgba(97, 166, 194, 0.1)";
-          hint.style.color = "#8b949e";
+            hint.textContent = "Click to Copy";
+            hint.style.background = "rgba(97, 166, 194, 0.1)";
+            hint.style.color = "#8b949e";
         }, 2000);
-      }).catch(() => {
-        hint.textContent = "Failed to copy";
-        hint.style.color = "#f87171";
-        
-        setTimeout(() => {
-          hint.textContent = "Click to Copy";
-          hint.style.color = "#8b949e";
-        }, 2000);
-      });
+        }
     }
-  </script>
+    </script>
 </body>
 </html>
