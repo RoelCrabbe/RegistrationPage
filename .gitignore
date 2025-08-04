@@ -1,25 +1,43 @@
-# CakePHP 3
+# Ignore system files
+.DS_Store
+Thumbs.db
 
-/vendor/*
-/config/app.php
+# Ignore Composer dependencies
+/vendor/
+/composer.lock
 
-/tmp/cache/models/*
-!/tmp/cache/models/empty
-/tmp/cache/persistent/*
-!/tmp/cache/persistent/empty
-/tmp/cache/views/*
-!/tmp/cache/views/empty
-/tmp/sessions/*
-!/tmp/sessions/empty
-/tmp/tests/*
-!/tmp/tests/empty
+# Ignore environment/config files
+.env
+config.php
 
-/logs/*
-!/logs/empty
+# Ignore IDE/editor config files
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
 
-# CakePHP 2
+# Ignore log files
+*.log
 
-/app/tmp/*
-/app/Config/core.php
-/app/Config/database.php
-/vendors/*
+# Ignore cache/temp files
+/cache/
+/tmp/
+*.cache
+
+# Ignore PHPUnit test results
+.phpunit.result.cache
+
+# Ignore coverage reports
+/coverage/
+
+# Ignore build artifacts
+/build/
+/dist/
+
+# Ignore node_modules if frontend is included
+/node_modules/
+
+# Ignore OS generated files
+ehthumbs.db
+Icon?
+Desktop.ini
