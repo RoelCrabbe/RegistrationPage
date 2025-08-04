@@ -168,7 +168,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   </div>
 
   <script>
-    // Copy realmlist functionality
     function copyRealmlist() {
       const text = document.getElementById("realmlist").textContent;
       const hint = document.getElementById("copyHint");
@@ -194,7 +193,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       });
     }
 
-    // Create floating particles
     function createParticles() {
       const particles = document.getElementById('particles');
       const particleCount = 50;
@@ -209,10 +207,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       }
     }
 
-    // Initialize particles on load
     document.addEventListener('DOMContentLoaded', createParticles);
-
-    // Add subtle hover effects to form inputs
     document.querySelectorAll('.form-input').forEach(input => {
       input.addEventListener('focus', function() {
         this.parentElement.style.transform = 'translateY(-2px)';
