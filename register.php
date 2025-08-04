@@ -159,7 +159,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
       <?php if (!empty($result) && strpos($result, 'created') !== false): ?>
         <div class="success-message">
-          🎉 <?php echo $result; ?>
+          <?php echo $result; ?>
         </div>
       <?php elseif (!empty($result)): ?>
         <span class="invalid-feedback"><?php echo $result; ?></span>
